@@ -1,7 +1,7 @@
 {
   "name": "staged-files",
   "description": "Run a command on staged files matching a pattern",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/jpommerening/staged-files.git",
   "license": "MIT",
   "main": "index.js",

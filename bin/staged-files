@@ -40,6 +40,8 @@ stream.on('end', function() {
     if (command.length) {
       spawn(command[0], command.slice(1).concat(files), {
         stdio: 'inherit'
+      }).on('close', function (code) {
+        process.exit(code);
       });
     } else {
       files.forEach(function(file) {

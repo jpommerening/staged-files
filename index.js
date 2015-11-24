@@ -6,8 +6,9 @@ var File = require('vinyl');
 
 function fileStream(base) {
   function createFile(line) {
-    if (line) {
-      this.push(new File({ base: base, path: line.toString() }));
+    var path = line.toString();
+    if (path) {
+      this.push(new File({ base: base, path: path }));
     }
   }
 
