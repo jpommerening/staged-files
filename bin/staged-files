@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+var args = process.argv.splice(2);
+var index = args.indexOf( '--' );
+var glob = index < 0 ? [] : args.slice( 0, index );
+var command = index < 0 ? args : args.slice( index + 1);
+
+var os = require('os');
+var path = require('path');
+var spawn = require('child_process').spawn;
+var minimatch = require('minimatch');
+var stagedFiles = require('../index');
+
+var stream = stagedFiles(glob, {});
+
+var filters = glob.map(minimatch.filter);
+
+function test(file) {
+  return filters.length ? filters.some(function (filter) {
+    return filter(file);
+  }) : true;
+}
+
+function relative(file) {
+  var abs = path.join(file.base, file.path);
+  var rel = path.relative(process.cwd(), abs);
+  return rel;
+}
+
+var files = [];
+
+stream.on('data', function(file) {
+  var rel = relative(file);
+  if (test(rel)) {
+    files.push(rel);
+  }
+});
+
+stream.on('end', function() {
+  if (files.length) {
+    if (command.length) {
+      spawn(command[0], command.slice(1).concat(files), {
+        stdio: 'inherit'
+      });
+    } else {
+      files.forEach(function(file) {
+        console.log(file);
+      });
+    }
+  }
+});

@@ -1,0 +1,24 @@
+{
+  "name": "staged-files",
+  "description": "Run a command on staged files matching a pattern",
+  "version": "0.1.0",
+  "repository": "https://github.com/jpommerening/staged-files.git",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "staged-files": "./bin/staged-files"
+  },
+  "scripts": {},
+  "keywords": [
+    "git",
+    "staged",
+    "files",
+    "hooks"
+  ],
+  "dependencies": {
+    "object-assign": "^4.0.1",
+    "through2": "^2.0.0",
+    "minimatch": "^3.0.0",
+    "vinyl": "^1.1.0"
+  }
+}
