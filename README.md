@@ -13,7 +13,10 @@ staged-files 'optional-pattern/**' -- optional_command
 [Vinyl](https://github.com/gulpjs/vinyl-fs) compatible stream.
 
 ```js
+var fs = require('vinyl-fs');
 var stagedFiles = require('staged-files');
 
-stagedFiles().pipe(/*...*/);
+stagedFiles()
+  .pipe(fs.src(['**/*.js'], { passthrough: true }))
+  .pipe(fs.dest('./output'));
 ```
