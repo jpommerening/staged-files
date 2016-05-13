@@ -1,3 +1,4 @@
+var fs = require('fs');
 var spawn = require('child_process').spawn;
 var os = require('os');
 var through = require('through2');
@@ -8,7 +9,11 @@ function fileStream(base) {
   function createFile(line) {
     var path = line.toString();
     if (path) {
-      this.push(new File({ base: base, path: path }));
+      this.push(new File({
+          base: base,
+          path: path,
+          contents: fs.readFileSync(path)
+      }));
     }
   }
 
